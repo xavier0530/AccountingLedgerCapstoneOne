@@ -9,7 +9,7 @@ import java.util.Scanner;
 // Import java.io.FileReader;
 // Import java.io.IOException;
 public class Main {
-    static ArrayList<Transactions> transactions = new ArrayList<Transactions>();
+    static ArrayList<Transactions> transactions = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -26,69 +26,93 @@ public class Main {
 
             switch (input) {
                 case "D":
-                    //Add Deposit to CSV
+                    addDeposit();
                     break;
                 case "P":
+                    addPayment();
                     //Make Payment to CSV
                     break;
                 case "L":
-                    //Open Ledger submenu
+                    addLedger();
+                    //go to subInput
                     break;
                 case "E":
+                    exit();
                     //exit
                     break;
                 default:
                     System.out.println("Invalid input!");
-                    
-                
-                
-                    
+
+
             }
-            }while(input.equalsIgnoreCase("L"));
+        } while (input.equalsIgnoreCase("E"));
+    }
+
+    private static void addDeposit() {
+//ADd deposit to array list
+    }
+
+    private static void addPayment() {
+//Add payment to array list
+    }
+    private static void exit(){
+   //Stop Application
+    }
+
+    public static void addLedger() {
+        String subInput;
+        do {
+            System.out.println("| Ledger |");
+            System.out.println("\tA) Show all ");
+            System.out.println("\tD) Show all Deposits");
+            System.out.println("\tP) Show all Payments ");
+            System.out.println("\tR) Reports");
+            subInput = scanner.nextLine();
+
+            switch (subInput) {
+                case "A":
+                  allEntries();
+                    //Display All the entries
+                    break;
+                case "D":
+                    allDeposits();
+                    //Display all Deposits (positive)
+                    break;
+                case "L":
+                  allPayments();
+                    //Display all payments (negative)
+                    break;
+                case "B":
+                    back();
+                    //Back
+                    break;
+                case "R":
+                 report();
+                default:
+                    System.out.println("Invalid input!");
+        }
+        }while (subInput.equalsIgnoreCase("B"));
+    }
+    private static void allEntries(){
+    }
+    private static void allDeposits(){
+    }
+    private static void allPayments(){
+    }
+    private static void back(){
+
+    }
+    private static void report(){
+    }
+}
+
+
         
         
     
 
 //Payments
-class payments {private static void payment(Scanner scanner, ArrayList<Transactions> transactions) {
-    System.out.println("Enter the date of the payment (YYYY-MM-DD):");
-    String date = scanner.nextLine();
 
-    System.out.println("Enter the time of the payment (HH:MM:SS):");
-    String time = scanner.nextLine();
-
-    System.out.println("Enter the description of the payment:");
-    String description = scanner.nextLine();
-
-    System.out.println("Enter the vendor of the payment:");
-    String vendor = scanner.nextLine();
-
-    System.out.println("Enter the amount of the payment:");
-    String amount = scanner.nextLine();
-
-//Transactions
-    class transaction {
-        private static void addDeposit(Scanner scanner, ArrayList<transaction> transactions) {
-            System.out.println("Please enter the date of the deposit (YYYY-MM-DD):");
-            String date = scanner.nextLine();
-
-            System.out.println("Please enter the time of the deposit (HH:MM:SS):");
-            String time = scanner.nextLine();
-
-            System.out.println("Please enter the description of the deposit:");
-            String description = scanner.nextLine();
-
-            System.out.println("Please enter the vendor:");
-            String vendor = scanner.nextLine();
-
-            System.out.println("Please enter the amount:");
-            String amount = scanner.nextLine();
-        }
-    }
-}
-}
-    }
-}
 //Reports
 
 
@@ -139,8 +163,7 @@ class payments {private static void payment(Scanner scanner, ArrayList<Transacti
         //Prompt the User for Vendor name and compare to the CSV file
         //print the transactions with matching Strings
 
-/**
- * Initialize variable for user input
+/**Initialize variable for user input
  * Create a Home menu that has the following
  * Add Deposit (D)
  * Make Payment (P)
