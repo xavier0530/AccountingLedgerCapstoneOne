@@ -9,7 +9,7 @@ import java.util.Scanner;
 // Import java.io.FileReader;
 // Import java.io.IOException;
 public class Main {
-    static ArrayList<Transactions> transactions = new ArrayList<>();
+    static ArrayList<ArrayList<ArrayList<Transactions>>> transactions = new ArrayList<ArrayList<ArrayList<Transactions>>>();
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -49,8 +49,23 @@ public class Main {
     }
 
     private static void addDeposit() {
-//ADd deposit to array list
+        System.out.println("Please Input the date of the deposit (YYYY-MM-DD): ");
+            String date = scanner.nextLine();
+        System.out.println("Please Input the time of the deposit(HH-MM-SS)");
+            int time = Integer.parseInt(scanner.nextLine());
+        System.out.println("Please input a brief description of the product");
+            String description = scanner.nextLine();
+        System.out.println("Please input the vendor");
+            String vendor = scanner.nextLine();
+        System.out.println("Please input the price");
+            double price = Double.parseDouble(scanner.nextLine());
+
+        Transactions transaction = new Transactions(date, time, description, vendor, Double.parseDouble(String.valueOf(price)));
+        System.out.println("Deposit added successfully.");
     }
+        //ADd deposit to array list
+
+
 
     private static void addPayment() {
 //Add payment to array list
@@ -96,6 +111,7 @@ public class Main {
     private static void allEntries(){
     }
     private static void allDeposits(){
+
     }
     private static void allPayments(){
     }
