@@ -6,31 +6,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static com.xd.Transaction.addDeposit;
+import static com.xd.Transaction.addPayment;
+
 public class Main {
 
     static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     static Scanner scanner = new Scanner(System.in);
 
-    static FileWriter fileWriter;
-
-//    static {
-//        try {
-//            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//
-//    static BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
     public static void main(String[] args) {
-
-            try {
-                fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
 
 
 
@@ -71,54 +55,6 @@ public class Main {
         } while (!input.equalsIgnoreCase("E"));
     }
 
-    public static void addDeposit() {
-        System.out.println("Please Input the date of the Payment (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
-        System.out.println("Please Input the time of the payment(HH-MM-SS)");
-        String time = scanner.nextLine();
-        System.out.println("Please input a brief description of the payment");
-        String description = scanner.nextLine();
-        System.out.println("Please input the vendor");
-        String vendor = scanner.nextLine();
-        System.out.println("Please input the amount");
-        String price = scanner.nextLine();
-
-        Transaction transaction = new Transaction();
-        System.out.println("Deposit added successfully.");
-        FileInputStream poemFile = null;
-        try {
-            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-            fileWriter.write("\nDeposit"+date+ "|"+ time+ "|"+ description+"|"+  vendor +"|"+ price);
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    public static void addPayment() {
-        System.out.println("Please Input the date of the payment (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
-        System.out.println("Please Input the time of the payment(HH-MM-SS)");
-        String time = scanner.nextLine();
-        System.out.println("Please input a brief description of the product");
-        String description = scanner.nextLine();
-        System.out.println("Please input the vendor");
-        String vendor = scanner.nextLine();
-        System.out.println("Please input the price ");
-        String price = scanner.nextLine();
-
-        Transaction transaction = new Transaction();
-        System.out.println("Payment added successfully.");
-        try {
-            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-            fileWriter.write("\nPayment"+date+ "|"+ time+ "|" + description+"|" + vendor +"|"+ price);
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 //
     public static void displayLedger() {//change to display
@@ -137,7 +73,7 @@ public class Main {
 
                     break;
                 case "D":
-                    displauAllDeposits();
+                    displayAllDeposits();
                     //Display all Deposits (positive)
                     break;
                 case "L":
@@ -157,7 +93,7 @@ public class Main {
         } while (!subInput.equalsIgnoreCase("B"));
     }
 
-    private static void allEntries() {
+    private static void displayAllEntries() {
         try {
             FileReader poemFile = new FileReader("./src/main/java/com/xd/Transactions.txt");
             BufferedReader bufferedReader = new BufferedReader(poemFile);
@@ -176,11 +112,11 @@ public class Main {
     }
 
 
-    private static void allDeposits() {
+    private static void displayAllDeposits() {
 
     }
 
-    private static void allPayments() {
+    private static void displayAllPayments() {
     }
 
     private static void back() {

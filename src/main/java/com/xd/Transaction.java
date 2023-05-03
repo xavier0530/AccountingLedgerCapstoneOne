@@ -6,9 +6,7 @@ import java.io.IOException;
 import static com.xd.Main.scanner;
 
 public class Transaction {
-   String date, String
-   time ,
-
+   static FileWriter fileWriter;
    public static void addDeposit() {
       System.out.println("Please Input the date of the Payment (YYYY-MM-DD): ");
       String date = scanner.nextLine();
@@ -19,14 +17,14 @@ public class Transaction {
       System.out.println("Please input the vendor");
       String vendor = scanner.nextLine();
       System.out.println("Please input the amount");
-      String price = scanner.nextLine();
+      double amount = Double.parseDouble(scanner.nextLine());
 
-      Transaction transaction = new Transaction();
+      Transaction transaction = new Transaction(date, time, description, vendor,amount);
       System.out.println("Deposit added successfully.");
       FileInputStream poemFile = null;
       try {
-         FileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-         fileWriter.write("\nDeposit" + date + "|" + time + "|" + description + "|" + vendor + "|" + price);
+         fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
+         fileWriter.write("\nDeposit" + date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
          fileWriter.close();
       } catch (IOException e) {
          throw new RuntimeException(e);
@@ -44,19 +42,85 @@ public class Transaction {
       System.out.println("Please input the vendor");
       String vendor = scanner.nextLine();
       System.out.println("Please input the price ");
-      String price = scanner.nextLine();
+      double amount = Double.parseDouble(scanner.nextLine());
 
-      Transaction transaction = new Transaction();
+      Transaction transaction;
+      transaction = new Transaction( date,  time,  description,  vendor, amount);
       System.out.println("Payment added successfully.");
       try {
          fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
-         fileWriter.write("\nPayment" + date + "|" + time + "|" + description + "|" + vendor + "|" + price);
+         fileWriter.write("\nPayment" + date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
          fileWriter.close();
       } catch (IOException e) {
          throw new RuntimeException(e);
       }
 
    }
+
+       public String date;
+       public String time;
+       public String description;
+       public String vendor;
+       public double amount;
+
+   public Transaction(String date, String time, String description, String vendor, double amount) {
+      this.date = date;
+      this.time = time;
+      this.description = description;
+      this.vendor = vendor;
+      this.amount = amount;
+
+   }
+
+   public static FileWriter getFileWriter() {
+      return fileWriter;
+   }
+
+   public static void setFileWriter(FileWriter fileWriter) {
+      Transaction.fileWriter = fileWriter;
+   }
+
+   public String getDate() {
+      return date;
+   }
+
+   public void setDate(String date) {
+      this.date = date;
+   }
+
+   public String getTime() {
+      return time;
+   }
+
+   public void setTime(String time) {
+      this.time = time;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public String getVendor() {
+      return vendor;
+   }
+
+   public void setVendor(String vendor) {
+      this.vendor = vendor;
+   }
+
+   public double getAmount() {
+      return amount;
+   }
+
+   public void setAmount(double amount) {
+      this.amount = amount;
+   }
+
 }
+
 //public class fileReader
 
