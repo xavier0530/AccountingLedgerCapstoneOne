@@ -2,19 +2,39 @@ package com.xd;
 // Import Scanner class
 // Import ArrayList class
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Import java.io.BufferedReader;
-// Import java.io.FileReader;
-// Import java.io.IOException;
 public class Main {
-    static ArrayList<ArrayList<ArrayList<Transactions>>> transactions = new ArrayList<ArrayList<ArrayList<Transactions>>>();
+
+    static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     static Scanner scanner = new Scanner(System.in);
 
+    static FileWriter fileWriter;
+
+//    static {
+//        try {
+//            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//
+//    static BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
     public static void main(String[] args) {
 
-        String input;
+            try {
+                fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
+
+        String input;//System.out.println(txt.toUpperCase());
         do {
             System.out.println("| Home |");
             System.out.println("\tD) Add deposit");
@@ -24,57 +44,84 @@ public class Main {
             input = scanner.nextLine();
 
 
-            switch (input) {
+            switch (input.toUpperCase()) {
                 case "D":
+
                     addDeposit();
                     break;
                 case "P":
+
                     addPayment();
-                    //Make Payment to CSV
+
                     break;
                 case "L":
-                    addLedger();
-                    //go to subInput
+
+                    displayLedger();
+
                     break;
                 case "E":
-                    exit();
-                    //exit
+
+                    System.out.println("Exiting");
                     break;
                 default:
                     System.out.println("Invalid input!");
 
 
             }
-        } while (input.equalsIgnoreCase("E"));
+        } while (!input.equalsIgnoreCase("E"));
     }
 
-    private static void addDeposit() {
-        System.out.println("Please Input the date of the deposit (YYYY-MM-DD): ");
-            String date = scanner.nextLine();
-        System.out.println("Please Input the time of the deposit(HH-MM-SS)");
-            int time = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please input a brief description of the product");
-            String description = scanner.nextLine();
+    public static void addDeposit() {
+        System.out.println("Please Input the date of the Payment (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.println("Please Input the time of the payment(HH-MM-SS)");
+        String time = scanner.nextLine();
+        System.out.println("Please input a brief description of the payment");
+        String description = scanner.nextLine();
         System.out.println("Please input the vendor");
-            String vendor = scanner.nextLine();
-        System.out.println("Please input the price");
-            double price = Double.parseDouble(scanner.nextLine());
+        String vendor = scanner.nextLine();
+        System.out.println("Please input the amount");
+        String price = scanner.nextLine();
 
-        Transactions transaction = new Transactions(date, time, description, vendor, Double.parseDouble(String.valueOf(price)));
+        Transaction transaction = new Transaction();
         System.out.println("Deposit added successfully.");
-    }
-        //ADd deposit to array list
-
-
-
-    private static void addPayment() {
-//Add payment to array list
-    }
-    private static void exit(){
-   //Stop Application
+        FileInputStream poemFile = null;
+        try {
+            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
+            fileWriter.write("\nDeposit"+date+ "|"+ time+ "|"+ description+"|"+  vendor +"|"+ price);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static void addLedger() {
+
+    public static void addPayment() {
+        System.out.println("Please Input the date of the payment (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.println("Please Input the time of the payment(HH-MM-SS)");
+        String time = scanner.nextLine();
+        System.out.println("Please input a brief description of the product");
+        String description = scanner.nextLine();
+        System.out.println("Please input the vendor");
+        String vendor = scanner.nextLine();
+        System.out.println("Please input the price ");
+        String price = scanner.nextLine();
+
+        Transaction transaction = new Transaction();
+        System.out.println("Payment added successfully.");
+        try {
+            fileWriter = new FileWriter("./src/main/java/com/xd/Transaction.txt", true);
+            fileWriter.write("\nPayment"+date+ "|"+ time+ "|" + description+"|" + vendor +"|"+ price);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+//
+    public static void displayLedger() {//change to display
         String subInput;
         do {
             System.out.println("| Ledger |");
@@ -86,15 +133,15 @@ public class Main {
 
             switch (subInput) {
                 case "A":
-                  allEntries();
-                    //Display All the entries
+                    displayAllEntries();
+
                     break;
                 case "D":
-                    allDeposits();
+                    displauAllDeposits();
                     //Display all Deposits (positive)
                     break;
                 case "L":
-                  allPayments();
+                    displayAllPayments();
                     //Display all payments (negative)
                     break;
                 case "B":
@@ -102,26 +149,84 @@ public class Main {
                     //Back
                     break;
                 case "R":
-                 report();
+                    reports();
+                    break;
                 default:
                     System.out.println("Invalid input!");
+            }
+        } while (!subInput.equalsIgnoreCase("B"));
+    }
+
+    private static void allEntries() {
+        try {
+            FileReader poemFile = new FileReader("./src/main/java/com/xd/Transactions.txt");
+            BufferedReader bufferedReader = new BufferedReader(poemFile);
+
+            String input;
+
+            while((input = bufferedReader.readLine()) != null){
+                System.out.println(input);
+            }
+
+            bufferedReader.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
         }
-        }while (subInput.equalsIgnoreCase("B"));
     }
-    private static void allEntries(){
-    }
-    private static void allDeposits(){
+
+
+    private static void allDeposits() {
 
     }
-    private static void allPayments(){
+
+    private static void allPayments() {
     }
-    private static void back(){
+
+    private static void back() {
 
     }
-    private static void report(){
+
+    private static void report() {
     }
+
+    public static void reports() {
+        String subInput;
+        do {
+            System.out.println("| Reports |");
+            System.out.println("\tA) Month to Date ");
+            System.out.println("\tD) Previous Month");
+            System.out.println("\tP) Payments ");
+            System.out.println("\tR) Previous");
+            System.out.println("\tS) Search by vendor");
+            subInput = scanner.nextLine();
+
+            switch (subInput) {
+                case "A":
+
+                    //Display All the entries
+                    break;
+                case "D":
+
+                    //Display all Deposits (positive)
+                    break;
+                case "L":
+
+                    //Display all payments (negative)
+                    break;
+                case "B":
+
+                    break;
+                case "R":
+                    break;
+
+                default:
+                    System.out.println("Invalid input!");
+            }
+        } while (subInput.equalsIgnoreCase("B"));
+    }
+
 }
-
 
         
         
